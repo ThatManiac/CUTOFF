@@ -1,10 +1,9 @@
 #include <pebble.h>
-  
-
 static Window *s_my_window;
 static Layer *s_line_layer;
 static TextLayer *s_hour_layer, *s_minute_layer;
 static GFont s_time_font;
+static GColor Line;
 #ifdef PBL_BW
 static InverterLayer *s_inv_layer;
 #endif
@@ -13,10 +12,10 @@ static InverterLayer *s_inv_layer;
   
 
 
+//Bluetooth service handler
+static void bluetooth_handler (bool connected){ 
 
-static void bluetooth_handler (bool connected){
-
-  
+  //Checks to see if bluetooth is connected and changes the color to either blue or green(Pebble Time ONLY)
     if(connected) {
     #ifdef PBL_COLOR
     text_layer_set_text_color(s_minute_layer , GColorSpringBud);
@@ -41,9 +40,9 @@ static void bluetooth_handler (bool connected){
 
 }
 
+//Draws the canvas to which everything should be drawn, or painted, depending if you ar an artist or not
 static void s_layer_update_proc(Layer *l, GContext *ctx){
  
-GColor Line;
 Line = GColorWhite;
   
 graphics_context_set_fill_color(ctx, Line);
@@ -95,8 +94,6 @@ static void main_window_load(Window *window) {
   
 //Layers
   
-
-  
   //Minutes
   s_minute_layer = text_layer_create(GRect(15, 56, 144, 80));
   text_layer_set_text(s_minute_layer, "");
@@ -126,13 +123,12 @@ static void main_window_load(Window *window) {
 
   
 #ifdef PBL_COLOR
-text_layer_set_text_color(s_minute_layer , GColorSpringBud);
- text_layer_set_text_color(s_hour_layer , GColorGreen);
+  text_layer_set_text_color(s_minute_layer , GColorSpringBud);
+  text_layer_set_text_color(s_hour_layer , GColorGreen);
   
-    
  #else
-    text_layer_set_text_color(s_minute_layer , GColorWhite);//Sets minutes white on OG Pebble
-    text_layer_set_text_color(s_hour_layer , GColorWhite);//Set hours white on OG Pebble
+  text_layer_set_text_color(s_minute_layer , GColorWhite);//Sets minutes white on OG Pebble
+  text_layer_set_text_color(s_hour_layer , GColorWhite);//Set hours white on OG Pebble
   
  #endif
    
@@ -155,14 +151,18 @@ text_layer_set_text_color(s_minute_layer , GColorSpringBud);
  }
 
 
-
+//DESTROYS the layers!!!!
 static void main_window_unload(Window *window) {
-  // Destroy TextLayer
   text_layer_destroy(s_hour_layer);
   text_layer_destroy(s_minute_layer);
   layer_destroy(s_line_layer);
+  //Only applies to OG Pebble because inverter layer only applies to OG pebble.
+  #ifdef PBL_BW
+  inverter_layer_destroy(s_inv_layer);
+  #endif
 }
 
+//Settings
 #ifdef PBL_BW
 static void in_recv_handler(DictionaryIterator *iterator, void *context)
 {
@@ -225,6 +225,7 @@ static void init() {
   
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+  //Receives the messages from javascript.
   #ifdef PBL_BW
   app_message_register_inbox_received((AppMessageInboxReceived) in_recv_handler);
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
