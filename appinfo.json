@@ -1,0 +1,38 @@
+{
+    "appKeys": {
+        "KEY_BT": 1,
+        "KEY_INVERT": 0
+    },
+    "capabilities": [
+        "configurable"
+    ],
+    "companyName": "borgh.andreas@gmail.com",
+    "longName": "Cutoff",
+    "projectType": "native",
+    "resources": {
+        "media": [
+            {
+                "file": "images/BW Pebble.png",
+                "menuIcon": true,
+                "name": "SCREENSHOT",
+                "type": "png"
+            },
+            {
+                "file": "fonts/Oswald-Light.ttf",
+                "name": "FONT_LIGHT_72",
+                "type": "font"
+            }
+        ]
+    },
+    "sdkVersion": "3",
+    "shortName": "Cutoff",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "4cc5c195-be2f-4dff-8410-240724d9b2eb",
+    "versionLabel": "2.01",
+    "watchapp": {
+        "watchface": true
+    }
+}
