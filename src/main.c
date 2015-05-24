@@ -4,7 +4,7 @@ static Layer *s_line_layer;
 static TextLayer *s_hour_layer, *s_minute_layer;
 static GFont s_time_font;
 static GColor Line;
-#ifdef PBL_BW
+#ifdef PBL_BW//Pebble B/W layer only
 static InverterLayer *s_inv_layer;
 #endif
 #define KEY_INVERT 0
