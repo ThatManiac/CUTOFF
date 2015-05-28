@@ -2,47 +2,40 @@
 <html>
   <head>
     <title>Configuration</title>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.css" />
+    <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.1/jquery.mobile-1.4.1.min.js"></script>
   </head>
   <body>
-    <h1>CUTOFF configuration</h1>
-    <p>settings</p>
+    <h1><u>CONFIGURATION</u></h1>
+    <h2>Settings</h2>
 
-    <p>Invert watchapp:
-  <select name="invert_select" id="invert_select" data-role="slider">
+    <Legend><h4>Invert watchface:</h4></Legend>
+  <select name="invert" id="invert" data-role="slider">
  <option value="off">Off</option>
  <option value="on">On</option>
   </select>
-    </p>
+  
+    <Legend><h4>Bt vibrate:</h4></Legend>
+  <select name="bluetoothvibe" id="bluetoothvibe" data-role="slider">
+ <option value="off">Off</option>
+ <option value="on">On</option>
+  </select>
 
     <p>
     <button id="save_button">Save</button>
     </p>
-    
-     <form>
-                                <label for="flip-1">Inverted? (White BG, Black Text)</label>
-                                <select name="flip-1" id="flip-1" data-role="slider">
-                                        <option value="off">Off</option>
-                                        <option value="on">On</option>
-                                </select>
-                               
-                                <fieldset data-role="controlgroup">
-                                        <legend>Choose a Temperature Unit</legend>
-                                        <input type="radio" name="radio-choice-v-2" id="radio-choice-v-2c" value="F" checked="checked">
-                                        <label for="radio-choice-v-2c">Fahrenheit</label>
-                                        <input type="radio" name="radio-choice-v-2" id="radio-choice-v-2b" value="C">
-                                        <label for="radio-choice-v-2b">Celsius</label>                                 
-                                        <input type="radio" name="radio-choice-v-2" id="radio-choice-v-2a" value="K">
-                                        <label for="radio-choice-v-2a">Kelvin</label>
-                                </fieldset>
-                        </form>
 
     <script>
       //Setup to allow easy adding more options later
       function saveOptions() {
-        var invertSelect = document.getElementById("invert_select");
-
+        var invert = document.getElementById("invert_select");
+		var bluetoothvibe = document.getElementById("bt_select");
         var options = {
-          "invert": invertSelect.options[invertSelect.selectedIndex].value
+          "invert": invertSelect.options[invert.selectedIndex].value,
+          "bluetoothvibe": btSelect.options[bluetoothvibe.selectedIndex].value
         }
         
         return options;
@@ -60,5 +53,6 @@
         }, 
       false);
     </script>
-  </body>
+  
+</body>
 </html>
