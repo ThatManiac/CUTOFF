@@ -1,11 +1,12 @@
 #include <pebble.h>
 #define SETTINGS_KEY 0
-
 Window *s_my_window;
 Layer *s_line_layer;
 TextLayer *s_hour_layer, *s_minute_layer;
 GFont s_time_font;
 GColor Line;
+Settings settings;
+
 
 #ifdef PBL_BW//Pebble B/W layer only
   InverterLayer *s_inv_layer;
@@ -16,7 +17,7 @@ typedef enum AppKey {
   APP_KEY_BT
 } AppKey;
 
-typedef struct Settings {
+typedef struct settings {
   bool invert;
   bool bt;
 } Settings;
@@ -97,7 +98,7 @@ void main_window_load(Window *window) {
   text_layer_set_text_alignment(s_minute_layer, GTextAlignmentCenter);
   text_layer_set_font(s_minute_layer, s_time_font);
   text_layer_set_background_color(s_minute_layer, GColorClear);
-  layer_add_child(window_get_root_layer(s_my_window), text_layer_get_layer(s_minute_layer));
+  layer_add_child(window_layer, text_layer_get_layer(s_minute_layer));
   
   //Hours
   s_hour_layer = text_layer_create(GRect(-23, 19, 154, 61));
@@ -105,12 +106,12 @@ void main_window_load(Window *window) {
   text_layer_set_text(s_hour_layer, "");
   text_layer_set_text_alignment(s_hour_layer, GTextAlignmentCenter);
   text_layer_set_background_color(s_hour_layer, GColorBlack);
-  layer_add_child(window_get_root_layer(s_my_window), text_layer_get_layer(s_hour_layer));
+  layer_add_child(window_layer, text_layer_get_layer(s_hour_layer));
   
   //Line
   s_line_layer = layer_create(GRect(0 , 0, 144, 168));
   layer_set_update_proc(s_line_layer, s_layer_update_proc);
-  layer_add_child(window_get_root_layer(s_my_window), s_line_layer);
+  layer_add_child(window_layer, s_line_layer);
   
   //Inverter Layer, only for pebble OG
   #ifdef PBL_BW
@@ -148,7 +149,9 @@ void main_window_unload(Window *window) {
 
 //Saves and updates settings
 void save_settings(){
+  #ifdef PBL_BW
     layer_set_hidden(inverter_layer_get_layer(s_inv_layer), settings.invert);
+  #endif
     if(settings.bt || settings.invert){
       vibes_long_pulse();
     }
@@ -171,11 +174,11 @@ void in_recv_handler(DictionaryIterator *iterator, void *context){
   Tuple *t = dict_read_first(iterator);
   if(t){
     switch(t->key){
-    case KEY_INVERT:
+    case APP_KEY_INVERT:
       settings.invert = !(strcmp(t->value->cstring, "on") == 0);
       break;   
      
-     case KEY_BT:
+     case APP_KEY_BT:
       settings.bt = (strcmp(t->value->cstring, "on") == 0);
       break;
     }

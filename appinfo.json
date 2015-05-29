@@ -1,7 +1,7 @@
 {
     "appKeys": {
-        "KEY_BT": 1,
-        "KEY_INVERT": 0
+        "APP_KEY_BT": 1,
+        "APP_KEY_INVERT": 0
     },
     "capabilities": [
         "configurable"
@@ -12,15 +12,15 @@
     "resources": {
         "media": [
             {
+                "file": "fonts/Oswald-Light.ttf",
+                "name": "FONT_LIGHT_72",
+                "type": "font"
+            },
+            {
                 "file": "images/BW Pebble.png",
                 "menuIcon": true,
                 "name": "SCREENSHOT",
                 "type": "png"
-            },
-            {
-                "file": "fonts/Oswald-Light.ttf",
-                "name": "FONT_LIGHT_72",
-                "type": "font"
             }
         ]
     },
