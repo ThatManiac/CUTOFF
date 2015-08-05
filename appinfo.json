@@ -1,6 +1,5 @@
 {
     "appKeys": {
-        "APP_KEY_BT": 1,
         "APP_KEY_INVERT": 0
     },
     "capabilities": [
@@ -31,7 +30,7 @@
         "basalt"
     ],
     "uuid": "4cc5c195-be2f-4dff-8410-240724d9b2eb",
-    "versionLabel": "2.01",
+    "versionLabel": "2.03",
     "watchapp": {
         "watchface": true
     }

@@ -8,7 +8,10 @@ Pebble.addEventListener("ready",
 Pebble.addEventListener("showConfiguration",
   function(e) {
     //Load the remote config page
-    Pebble.openURL("http://mexico-way-8897.pancakeapps.com/");
+    //Pebble.openURL("http://config.pancakeapps.com/");
+    Pebble.openURL("http://config.pancakeapps.com/");
+    
+    
   }
 );
 
@@ -22,7 +25,7 @@ Pebble.addEventListener("webviewclosed",
  
     //Send to Pebble, persist there
     Pebble.sendAppMessage(
-      {"KEY_INVERT": configuration.invert},
+     {"KEY_INVERT": configuration.invert},
       function(e) {
         console.log("Sending settings data...");
       },
