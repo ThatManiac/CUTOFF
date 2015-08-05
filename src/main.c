@@ -73,65 +73,50 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
 
  #ifdef PBL_PLATFORM_BASALT
   static void handle_battery(BatteryChargeState charge_state) {
-
-  
-   if(charge_state.charge_percent == 100){
-     text_layer_set_text_color(s_hour_layer, GColorGreen);
-     text_layer_set_text_color(s_minute_layer, GColorGreen);
-
-    
-   }
-   if(charge_state.charge_percent == 90) {
-     text_layer_set_text_color(s_hour_layer, GColorSpringBud);
-     text_layer_set_text_color(s_minute_layer, GColorGreen);
-
-     
-   }
-   if(charge_state.charge_percent == 80) {
-     text_layer_set_text_color(s_hour_layer, GColorSpringBud);
-     text_layer_set_text_color(s_minute_layer, GColorSpringBud);
-
-     
-   }
-   if(charge_state.charge_percent == 70) {
-     text_layer_set_text_color(s_hour_layer, GColorIcterine);
-     text_layer_set_text_color(s_minute_layer, GColorSpringBud);
-
-     
-    }
-   if(charge_state.charge_percent == 60) {
-     text_layer_set_text_color(s_hour_layer, GColorIcterine);
-     text_layer_set_text_color(s_minute_layer, GColorIcterine);
-
-     
-    }
-   if(charge_state.charge_percent == 50) {
-      text_layer_set_text_color(s_hour_layer, GColorRajah);
-      text_layer_set_text_color(s_minute_layer, GColorIcterine);
-
-     
-    }
-   if(charge_state.charge_percent == 40) {
+    switch(charge_state.charge_percent){
+    case 100  :
+       text_layer_set_text_color(s_hour_layer, GColorGreen);
+       text_layer_set_text_color(s_minute_layer, GColorGreen);
+    case 90  :
+       text_layer_set_text_color(s_hour_layer, GColorSpringBud);
+       text_layer_set_text_color(s_minute_layer, GColorGreen);
+       break; 
+    case 80  :
+       text_layer_set_text_color(s_hour_layer, GColorSpringBud);
+       text_layer_set_text_color(s_minute_layer, GColorSpringBud);
+       break
+    case 70  :
+       text_layer_set_text_color(s_hour_layer, GColorIcterine);
+       text_layer_set_text_color(s_minute_layer, GColorSpringBud);
+       break; 
+    case 60  :
+       text_layer_set_text_color(s_hour_layer, GColorIcterine);
+       text_layer_set_text_color(s_minute_layer, GColorIcterine);
+       break;
+    case 50  :
        text_layer_set_text_color(s_hour_layer, GColorRajah);
-      text_layer_set_text_color(s_minute_layer, GColorRajah);
-
-     
-    }
-   if(charge_state.charge_percent == 30) {
-        text_layer_set_text_color(s_hour_layer, GColorRed);
-      text_layer_set_text_color(s_minute_layer, GColorRajah);
-
-   }
-   if(charge_state.charge_percent == 20) {
-      text_layer_set_text_color(s_hour_layer, GColorRed);
-      text_layer_set_text_color(s_minute_layer, GColorRed);
-
-   }
-   if(charge_state.charge_percent <= 10) {
-     text_layer_set_text_color(s_hour_layer, GColorFolly);
-     text_layer_set_text_color(s_minute_layer, GColorFolly);
- 
-   }
+       text_layer_set_text_color(s_minute_layer, GColorIcterine);
+       break; 
+    case 40  :
+       text_layer_set_text_color(s_hour_layer, GColorRajah);
+       text_layer_set_text_color(s_minute_layer, GColorRajah);
+       break; 
+    case 30  :
+       text_layer_set_text_color(s_hour_layer, GColorRed);
+       text_layer_set_text_color(s_minute_layer, GColorRajah);
+       break; 
+    case 20  :
+       text_layer_set_text_color(s_hour_layer, GColorRed);
+       text_layer_set_text_color(s_minute_layer, GColorRed);
+       break;
+    case 10  :
+       text_layer_set_text_color(s_hour_layer, GColorFolly);
+       text_layer_set_text_color(s_minute_layer, GColorFolly);
+       break; /* optional */
+    default : 
+       text_layer_set_text_color(s_hour_layer, GColorGreen);
+       text_layer_set_text_color(s_minute_layer, GColorGreen);
+  }
 }
 #endif
  
